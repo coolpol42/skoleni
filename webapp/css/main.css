@@ -1,0 +1,85 @@
+:root{
+    --black: #111111;
+    --bg: #dfdfdf;
+    --border: 1px solid #a4a4a4;
+
+    --border-radius: 5px;
+
+
+    --padding-cell: 10px 15px;
+}
+.sapUiLayoutCSSGrid{
+    margin: 10px auto;
+    background: var(--bg);
+    border: var(--border);
+    padding: 5px 10px 20px 10px;
+}
+
+.table-header, .navigation-cell, .cell{
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+.cell{
+    padding: var(--padding-cell);
+    border-radius: var(--border-radius);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.table-header, .navigation-cell{
+    border-radius: var(--border-radius);
+    justify-content: center;
+}
+.navigation-cell{
+    gap: 10px;
+}
+.navigation-cell button, .navigation-cell button span{
+    height: 100px;
+}
+.navigation-cell button span{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.navigation-cell button span .sapMBtnIcon{
+    font-size: 2rem;
+    line-height: normal;
+    padding: 0 !important;
+}
+.navigation-cell button span span{
+    height: min-content;
+}
+.navigation-cell button span .sapMBtnIcon:before{
+    width: unset !important;
+}
+.table-header{
+    background: var(--black);
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 5px 0;
+}
+.parameter-cell{
+    background: #d1d8e0;
+}
+.fixedvalue-cell{
+    background: #fdef77;
+}
+.input{
+    margin: 0;
+    height: 100%;
+}
+.img{
+    background: #ffffff;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.img img{
+    width: 150px
+}
+.img span{
+    font-weight: 700;
+    font-size: 20px;
+}

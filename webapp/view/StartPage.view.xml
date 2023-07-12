@@ -1,0 +1,27 @@
+<mvc:View
+        height="100%"
+        controllerName="sap.ui.skoleni/controller.StartPage"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns="sap.m"
+        displayBlock="true">
+    <App id="skoleni">
+        <pages>
+            <Page
+                    showHeader="false"
+                    enableScrolling="false">
+                <TileContainer
+                        id="container"
+                        tiles="{/Tiles}">
+                    <StandardTile
+                            type="Monitor"
+                            press=".onSelect"
+                            icon="src/languages/{code}.svg"
+                            title="{language}"
+                            info="{code}"/>
+                </TileContainer>
+
+            </Page>
+        </pages>
+    </App>
+
+</mvc:View>

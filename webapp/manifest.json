@@ -1,0 +1,145 @@
+{
+  "_version": "1.1.0",
+  "start_url": "index.html",
+  "sap.app": {
+    "_version": "1.1.0",
+    "id": "sap.ui.skoleni",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "tags": {
+      "keywords": [
+        "skoleni"
+      ]
+    },
+    "dataSources": {
+      "<dataSourceAlias>": {
+        "uri": "<uri>",
+        "settings": {
+          "localUri": "<localUri>"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "_version": "1.1.0",
+    "icons": {
+      "icon": "<icon>",
+      "favIcon": "<favIcon>",
+      "phone": "<phone>",
+      "phone@2": "<phone@2>",
+      "tablet": "<tablet>",
+      "tablet@2": "<tablet@2>"
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    },
+    "supportedThemes": [
+      "sap_horizon"
+    ]
+  },
+  "sap.ui5": {
+    "_version": "1.1.0",
+    "resources": {
+      "js": [
+        {
+          "uri": "<uri>"
+        }
+      ],
+      "css": [
+        {
+          "uri": "css/main.css"
+        }
+      ]
+    },
+    "dependencies": {
+      "minUI5Version": "1.60",
+      "libs": {
+        "sap.m": {},
+        "sap.f": {},
+        "sap.ui.core": {}
+      }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "sap.ui.skoleni.i18n.i18n",
+          "supportedLocales": [
+            "cz",
+            "eng",
+            "de",
+            "pol"
+          ],
+          "fallbackLocale": "eng"
+        },
+        "uri": "<uriRelativeToManifest>"
+      }
+    },
+    "rootView": {
+      "viewName": "sap.ui.skoleni.view.StartPage",
+      "type": "XML",
+      "async": true,
+      "id": "StartPage"
+    },
+    "handleValidation": false,
+    "config": {
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "sap.ui.skoleni.view",
+        "controlId": "skoleni",
+        "controlAggregation": "pages",
+        "transition": "slide",
+        "async": true
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "startpage",
+          "target": "startpage"
+        },
+        {
+          "pattern": "form/{language}",
+          "name": "form",
+          "target": "form"
+        }
+      ],
+      "targets": {
+        "startpage": {
+          "viewId": "startpage",
+          "viewName": "StartPage"
+        },
+        "form": {
+          "viewId": "form",
+          "viewName": "Form"
+        }
+      }
+    },
+    "extends": {
+      "component": "<extendedComponentId>",
+      "minVersion": "<minComp1Version>",
+      "extensions": {}
+    },
+    "contentDensities": {
+      "compact": false,
+      "cozy": false
+    }
+  },
+  "sap.platform.abap": {
+    "_version": "1.1.0",
+    "uri": "<uri>"
+  },
+  "sap.platform.hcp": {
+    "_version": "1.1.0",
+    "uri": "<uri>"
+  }
+}

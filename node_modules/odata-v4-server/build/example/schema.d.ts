@@ -1,0 +1,49 @@
+declare const _default: {
+    "version": string;
+    "dataServices": {
+        "schema": ({
+            "namespace": string;
+            "entityType": {
+                "name": string;
+                "key": {
+                    "propertyRef": {
+                        "name": string;
+                    }[];
+                }[];
+                "property": {
+                    "name": string;
+                    "type": string;
+                    "nullable": string;
+                }[];
+            }[];
+            "annotations": {
+                "target": string;
+                "annotation": {
+                    "term": string;
+                    "string": string;
+                }[];
+            }[];
+            "action"?: undefined;
+            "entityContainer"?: undefined;
+        } | {
+            "namespace": string;
+            "action": {
+                "name": string;
+            };
+            "entityContainer": {
+                "name": string;
+                "entitySet": {
+                    "name": string;
+                    "entityType": string;
+                }[];
+                "actionImport": {
+                    "name": string;
+                    "action": string;
+                };
+            };
+            "entityType"?: undefined;
+            "annotations"?: undefined;
+        })[];
+    };
+};
+export = _default;

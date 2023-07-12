@@ -1,0 +1,30 @@
+<mvc:View
+        controllerName="sap.ui.skoleni/controller.Form"
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core"
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns:grid="sap.ui.layout.cssgrid"
+        displayBlock="true">
+    <App id="form">
+            <pages>
+                <Page title="{i18n>appTitle}" showNavButton="true" navButtonPress=".navBack" titleAlignment="Center">
+                    <content>
+
+                        <grid:CSSGrid
+                                id="grid1"
+                                gridAutoFlow="Row"
+                                gridTemplateColumns="1fr 1fr"
+                                gridTemplateRows="repeat(7, 3rem)"
+                                gridGap="0.8rem 5px"
+                        width = "1200px">
+                            <Input/>
+                            <Input/>
+
+
+
+                        </grid:CSSGrid>
+                    </content>
+                </Page>
+            </pages>
+        </App>
+</mvc:View>

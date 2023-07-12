@@ -1,0 +1,76 @@
+<core:FragmentDefinition
+    xmlns="sap.ui.table"
+    xmlns:m = "sap.m"
+    xmlns:core = "sap.ui.core"
+    displayBlock="true">
+    <m:Dialog
+            id = "historyDialog"
+            title = "{i18n>history}"
+            >
+        <m:beginButton>
+            <m:Button text = "{i18n>close}" press = ".closeHistory" type = "Transparent" />
+        </m:beginButton>
+        <Table
+                rows="{/data}"
+                visibleRowCount="10"
+                rowHeight="40"
+                selectionMode = "None"
+                >
+            <columns>
+                <Column width = "3.5rem" sortProperty = "id" filterProperty = "id">
+                    <m:Label text="{i18n>id}" />
+                    <template>
+                        <m:Text text="{id}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width = "12%" sortProperty = "motor_current" filterProperty = "motor_current">
+                    <m:Label text="{i18n>motor_current}" />
+                    <template>
+                        <m:Text text="{motor_current}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width = "12%" sortProperty="open_pressure" filterProperty = "open_pressure">
+                    <m:Label text="{i18n>open_pressure}" />
+                    <template>
+                        <m:Text text="{open_pressure}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width = "12%" sortProperty = "switch_pressure" filterProperty = "switch_pressure">
+                    <m:Label text="{i18n>switch_pressure}" />
+                    <template>
+                        <m:Text text="{switch_pressure}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width = "12%" sortProperty="flow" filterProperty = "flow">
+                    <m:Label text="{i18n>flow}" />
+                    <template>
+                        <m:Text text="{flow}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column filterProperty = "command_id">
+                    <m:Label text="{i18n>command_id}" />
+                    <template>
+                        <m:Text text="{command_id}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column filterProperty = "pump_id">
+                    <m:Label text="{i18n>pump_id}"/>
+                    <template>
+                        <m:Text text="{pump_id}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column sortProperty = "dtm_create" filterProperty = "dtm_create">
+                    <m:Label text="{i18n>dtm_create}"/>
+                    <template>
+                        <m:Text text="{dtm_create}" wrapping="false" />
+                    </template>
+                </Column>
+                <Column width = "3.5rem" hAlign = "Center" resizable = "false" flexible = "false">
+                    <template>
+                        <m:Button icon = "sap-icon://delete"  width = "2.5rem" type="Reject" press=".onDelete({id: ${id}})"/>
+                    </template>
+                </Column>
+            </columns>
+        </Table>
+    </m:Dialog>
+</core:FragmentDefinition>
