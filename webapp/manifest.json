@@ -108,7 +108,7 @@
           "target": "startpage"
         },
         {
-          "pattern": "form/{language}",
+          "pattern": "{language}/form",
           "name": "form",
           "target": "form"
         }
