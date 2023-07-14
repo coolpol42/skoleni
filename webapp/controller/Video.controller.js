@@ -23,8 +23,8 @@ sap.ui.define([
         },
         videoEnded: function () {
             oView.byId("btn-forward").setEnabled(true);
-            MessageBox.confirm("", {
-                actions: [getI18nText("yes", that), getI18nText("proceedToVideo", that)],
+            MessageBox.confirm(getI18nText("replayMB", that), {
+                actions: [getI18nText("yes", that), getI18nText("proceedToSummaryMB", that)],
                 emphasizedAction: getI18nText("proceedToSummaryMB", that),
                 title: getI18nText("replay", that),
                 onClose: function (sAction) {
