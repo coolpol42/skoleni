@@ -1,0 +1,26 @@
+<mvc:View
+        controllerName="sap.ui.skoleni.controller.Video"
+        xmlns="sap.m"
+        xmlns:core="sap.ui.core"
+        xmlns:mvc="sap.ui.core.mvc"
+        displayBlock="true">
+    <App id="video">
+        <pages>
+            <Page title="{i18n>video}" showNavButton="true" navButtonPress=".navBack" titleAlignment="Center">
+                <headerContent>
+                    <Button text="proceedToSummary" press=".navForward" enabled="false" id="btn-forward"/>
+                </headerContent>
+                <content>
+                    <core:HTML content=
+                                       "&lt;div id = player &gt;
+                                                    &lt;video id = &quot;video-player&quot; autoplay muted&gt;
+                                                        &lt;source src=&quot;src/videos/video.m4v&quot; type=&quot;video/x-m4v&quot;&gt;
+                                                        {i18n&gt;videoNotSupported}
+                                                &lt;/video&gt;
+                                            &lt;/div&gt;"
+                    />
+                </content>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>

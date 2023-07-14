@@ -1,6 +1,6 @@
 <mvc:View
         height="100%"
-        controllerName="sap.ui.skoleni/controller.StartPage"
+        controllerName="sap.ui.skoleni.controller.StartPage"
         xmlns:mvc="sap.ui.core.mvc"
         xmlns="sap.m"
         displayBlock="true">

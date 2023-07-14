@@ -111,6 +111,11 @@
           "pattern": "{language}/form",
           "name": "form",
           "target": "form"
+        },
+        {
+          "pattern": "{language}/video",
+          "name": "video",
+          "target": "video"
         }
       ],
       "targets": {
@@ -121,6 +126,10 @@
         "form": {
           "viewId": "form",
           "viewName": "Form"
+        },
+        "video": {
+          "viewId": "video",
+          "viewName": "Video"
         }
       }
     },

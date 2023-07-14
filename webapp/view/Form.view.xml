@@ -1,5 +1,5 @@
 <mvc:View
-        controllerName="sap.ui.skoleni/controller.Form"
+        controllerName="sap.ui.skoleni.controller.Form"
         xmlns="sap.m"
         xmlns:core="sap.ui.core"
         xmlns:mvc="sap.ui.core.mvc"
@@ -7,21 +7,38 @@
         displayBlock="true">
     <App id="form">
             <pages>
-                <Page title="{i18n>appTitle}" showNavButton="true" navButtonPress=".navBack" titleAlignment="Center">
+                <Page title="{i18n>form}" showNavButton="true" navButtonPress=".navBack" titleAlignment="Center">
                     <content>
-
                         <grid:CSSGrid
                                 id="grid1"
                                 gridAutoFlow="Row"
                                 gridTemplateColumns="1fr 1fr"
-                                gridTemplateRows="repeat(7, 3rem)"
-                                gridGap="0.8rem 5px"
-                        width = "1200px">
-                            <Input/>
-                            <Input/>
-
-
-
+                                gridTemplateRows="2rem 4rem 2rem 4rem 4rem"
+                                gridGap="1.5rem 10px"
+                                width="100%">
+                            <Text text="{i18n>name}" class="text-cell"/>
+                            <Text text="{i18n>surname}" class="text-cell"/>
+                            <Input class="input" id="name" change=".formCheck" maxLength="30"
+                                   value="{formValues>/entry/name}"/>
+                            <Input class="input" id="surname" change=".formCheck" maxLength="30"
+                                   value="{formValues>/entry/surname}"/>
+                            <Text text="{i18n>company}" class="text-cell">
+                                <layoutData>
+                                    <grid:GridItemLayoutData gridColumn="1 / 3"/>
+                                </layoutData>
+                            </Text>
+                            <Input class="input" id="company" change=".formCheck" maxLength="50"
+                                   value="{formValues>/entry/company}">
+                                <layoutData>
+                                    <grid:GridItemLayoutData gridColumn="1 / 3"/>
+                                </layoutData>
+                            </Input>
+                            <Button icon="sap-icon://begin" visible="false" text="{i18n>toVideo}" type="Emphasized"
+                                    class="button" press=".navForward" id="toVideo">
+                                <layoutData>
+                                    <grid:GridItemLayoutData gridColumn="2 / 3"/>
+                                </layoutData>
+                            </Button>
                         </grid:CSSGrid>
                     </content>
                 </Page>
