@@ -27,6 +27,15 @@ sap.ui.define([
             }
             oModel = new JSONModel(oData);
             this.setModel(oModel, "formValues");
+            oModel = new JSONModel(copyObject(oData));
+            this.setModel(oModel, "backUp");
+
+            oData = {
+                reCheck: false,
+                videoViewed: false
+            }
+            oModel = new JSONModel(oData);
+            this.setModel(oModel, "nav");
 
             this.getRouter().initialize();
         },
@@ -38,4 +47,8 @@ function getI18nText(key, That, params = []) {
         return That.getView().getModel("i18n").getResourceBundle().getText(key, params);
     }
     return That.getView().getModel("i18n").getResourceBundle().getText(key);
+}
+
+function copyObject(obj = {}) {
+    return JSON.parse(JSON.stringify(obj));
 }

@@ -8,7 +8,8 @@
         <pages>
             <Page title="{i18n>video}" showNavButton="true" navButtonPress=".navBack" titleAlignment="Center">
                 <headerContent>
-                    <Button text="{i18n>proceedToSummary}" press=".navForward" enabled="false" id="btn-forward"/>
+                    <Button text="{i18n>proceedToSummary}" press=".navForward" enabled="false" id="btn-forward"
+                            icon="sap-icon://navigation-right-arrow"/>
                 </headerContent>
                 <content>
                     <core:HTML content=

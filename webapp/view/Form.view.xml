@@ -1,13 +1,12 @@
 <mvc:View
         controllerName="sap.ui.skoleni.controller.Form"
         xmlns="sap.m"
-        xmlns:core="sap.ui.core"
         xmlns:mvc="sap.ui.core.mvc"
         xmlns:grid="sap.ui.layout.cssgrid"
         displayBlock="true">
     <App id="form">
             <pages>
-                <Page title="{i18n>form}" showNavButton="true" navButtonPress=".navBack" titleAlignment="Center">
+                <Page title="{UI>/form/title}" showNavButton="true" navButtonPress=".navBack" titleAlignment="Center">
                     <content>
                         <grid:CSSGrid
                                 id="grid1"
@@ -33,7 +32,16 @@
                                     <grid:GridItemLayoutData gridColumn="1 / 3"/>
                                 </layoutData>
                             </Input>
-                            <Button icon="sap-icon://begin" visible="false" text="{i18n>toVideo}" type="Emphasized"
+
+                            <Button icon="sap-icon://decline" visible="{UI>/button/cancel}" text="{i18n>cancel}"
+                                    type="Transparent"
+                                    class="button" press=".navBack">
+                                <layoutData>
+                                    <grid:GridItemLayoutData gridColumn="1 / 2"/>
+                                </layoutData>
+                            </Button>
+                            <Button icon="sap-icon://{UI>/button/icon}" visible="false" text="{UI>/button/text}"
+                                    type="Emphasized"
                                     class="button" press=".navForward" id="toVideo">
                                 <layoutData>
                                     <grid:GridItemLayoutData gridColumn="2 / 3"/>

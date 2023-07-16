@@ -53,3 +53,19 @@
     box-sizing: border-box;
     height: 94vh;
 }
+
+.label {
+    text-align: right !important;
+}
+
+.value {
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+
+.viewed .text-cell {
+    font-size: 1.1rem;
+    font-weight: 400;
+    font-style: italic;
+    opacity: 0.8;
+}

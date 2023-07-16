@@ -37,6 +37,7 @@ sap.ui.define([
             });
         },
         navForward: function () {
+            this.getOwnerComponent().getModel("nav").setProperty("/videoViewed", true);
             this.getOwnerComponent().getRouter().navTo("summary", {language: lang});
         },
         navBack: function () {

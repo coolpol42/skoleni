@@ -116,6 +116,11 @@
           "pattern": "{language}/video",
           "name": "video",
           "target": "video"
+        },
+        {
+          "pattern": "{language}/summary",
+          "name": "summary",
+          "target": "summary"
         }
       ],
       "targets": {
@@ -130,6 +135,10 @@
         "video": {
           "viewId": "video",
           "viewName": "Video"
+        },
+        "summary": {
+          "viewId": "summary",
+          "viewName": "Summary"
         }
       }
     },
