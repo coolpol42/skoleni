@@ -45,10 +45,19 @@ sap.ui.define([
         },
 
         _onRouteMatched: function (oEvent) {
+
             var langugage = oEvent.getParameter("arguments").language.toLowerCase();
             lang = langCodes.includes(langugage) ? langugage : "eng";
 
             sap.ui.getCore().getConfiguration().setLanguage(lang);
+
+            let data = this.getOwnerComponent().getModel("formValues").getProperty("/entry");
+            for (let values in data) {
+                if (data[values] === "") {
+                    this.getOwnerComponent().getRouter().navTo("startpage");
+                    return;
+                }
+            }
         }
     });
 });

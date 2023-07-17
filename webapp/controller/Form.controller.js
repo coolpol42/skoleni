@@ -1,5 +1,3 @@
-let backendUrl = "http://localhost/skoleni/backend.php";
-
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel"
