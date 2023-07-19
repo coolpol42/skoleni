@@ -1,6 +1,6 @@
 {
   "_version": "1.1.0",
-  "start_url": "index.html",
+  "start_url": "",
   "sap.app": {
     "_version": "1.1.0",
     "id": "sap.ui.skoleni",

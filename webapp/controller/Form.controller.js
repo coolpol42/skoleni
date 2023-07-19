@@ -23,9 +23,7 @@ sap.ui.define([
             setTimeout(() => {
                 UI = {
                     form: {
-                        title: getI18nText("form", that),
-                        buttonsEdit: false,
-                        buttonsForm: true,
+                        title: getI18nText("form", that)
                     },
                     button: {
                         text: getI18nText("toVideo", that),
@@ -42,8 +40,10 @@ sap.ui.define([
 
             inputs.forEach((input) => {
                 let value = input.getValue();
-
+                let id = input.getId().split("--");
+                id = id[id.length - 1].replace("Input", "");
                 maxLength = input.getMaxLength();
+                let inputError = false;
 
                 if (value.length === 0) {
                     error = true;
@@ -57,8 +57,27 @@ sap.ui.define([
                     input.setValueStateText(getI18nText("dnm" + lim + "Length", that, [param]));
                     error = true;
                 } else {
-                    input.setValueState("None");
-                    input.setValueStateText("");
+                    switch (id) {
+                        case "name":
+                            if (!value.match(/^[ \p{L}]+$/u) || value.split(" ").length > 2) {
+                                input.setValueState("Error");
+                                input.setValueStateText(getI18nText("dnmPatternName", that));
+                                error = true;
+                                inputError = true;
+                            }
+                            break;
+                        case "surname":
+                            if (!value.match(/^[\p{L}]+$/u)) {
+                                input.setValueState("Error");
+                                input.setValueStateText(getI18nText("dnmPatternSurname", that));
+                                error = true;
+                                inputError = true;
+                            }
+                    }
+                    if (!inputError) {
+                        input.setValueState("None");
+                        input.setValueStateText("");
+                    }
                 }
             });
 
@@ -93,23 +112,27 @@ sap.ui.define([
 
             sap.ui.getCore().getConfiguration().setLanguage(lang);
 
-            let oData;
-            if (this.getOwnerComponent().getModel("nav").getProperty("/editForm")) {
-                oData = {
-                    form: {
-                        title: getI18nText("formEdit", that),
-                    },
-                    button: {
-                        text: getI18nText("toSummary", that),
-                        icon: "save",
-                        cancel: true
+            setTimeout(() => {
+                let oData;
+                if (this.getOwnerComponent().getModel("nav").getProperty("/editForm")) {
+                    oData = {
+                        form: {
+                            title: getI18nText("formEdit", that),
+                        },
+                        button: {
+                            text: getI18nText("toSummary", that),
+                            icon: "save",
+                            cancel: true
+                        }
                     }
+                } else {
+                    UI.form.title = getI18nText("form", that);
+                    UI.button.text = getI18nText("toVideo", that);
+                    oData = UI;
                 }
-            } else {
-                oData = UI;
-            }
-            let oModel = new JSONModel(oData);
-            this.getView().setModel(oModel, "UI");
+                let oModel = new JSONModel(oData);
+                this.getView().setModel(oModel, "UI");
+            }, 300);
         }
     });
 });

@@ -26,7 +26,7 @@
                                     <grid:GridItemLayoutData gridColumn="1 / 3"/>
                                 </layoutData>
                             </Text>
-                            <Input class="input" id="company" change=".formCheck" maxLength="50"
+                            <Input class="input" id="company" change=".formCheck" maxLength="70"
                                    value="{formValues>/entry/company}">
                                 <layoutData>
                                     <grid:GridItemLayoutData gridColumn="1 / 3"/>
