@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ResourceBundleManager">
+    <file url="file://$PROJECT_DIR$/webapp/i18n/i18n_cz.properties" />
+    <file url="file://$PROJECT_DIR$/webapp/i18n/i18n_de.properties" />
+    <file url="file://$PROJECT_DIR$/webapp/i18n/i18n_eng.properties" />
+    <custom-resource-bundle>
+      <file value="file://$PROJECT_DIR$/webapp/i18n/i18n_cz.properties" />
+      <file value="file://$PROJECT_DIR$/webapp/i18n/i18n_de.properties" />
+      <file value="file://$PROJECT_DIR$/webapp/i18n/i18n_eng.properties" />
+      <file value="file://$PROJECT_DIR$/webapp/i18n/i18n_pol.properties" />
+      <base-name>i18n</base-name>
+    </custom-resource-bundle>
+    <custom-resource-bundle>
+      <file value="file://$PROJECT_DIR$/webapp/i18n/i18n_cz.properties" />
+      <file value="file://$PROJECT_DIR$/webapp/i18n/i18n_de.properties" />
+      <file value="file://$PROJECT_DIR$/webapp/i18n/i18n_eng.properties" />
+      <base-name>i18n</base-name>
+    </custom-resource-bundle>
+  </component>
+</project>
