@@ -58,6 +58,8 @@ sap.ui.define([
                     return;
                 }
             }
+            oView.byId("btn-forward").setEnabled(false);
+            video.play();
         }
     });
 });

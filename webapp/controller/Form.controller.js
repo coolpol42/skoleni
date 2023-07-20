@@ -132,7 +132,8 @@ sap.ui.define([
                 }
                 let oModel = new JSONModel(oData);
                 this.getView().setModel(oModel, "UI");
-            }, 300);
+                this.formCheck();
+            }, 100);
         }
     });
 });

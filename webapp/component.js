@@ -15,6 +15,11 @@ sap.ui.define([
 
             UIComponent.prototype.init.apply(this, arguments);
 
+            this.refresh();
+
+            this.getRouter().initialize();
+        },
+        refresh: function () {
             var oModel = new JSONModel();
             this.setModel(oModel);
 
@@ -36,9 +41,7 @@ sap.ui.define([
             }
             oModel = new JSONModel(oData);
             this.setModel(oModel, "nav");
-
-            this.getRouter().initialize();
-        },
+        }
     });
 })
 
