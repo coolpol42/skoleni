@@ -9,11 +9,12 @@ sap.ui.define([
         onInit: function () {
             that = this;
 
+            // Settings on nav to this view
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             oRouter.getRoute("video").attachPatternMatched(this._onRouteMatched, this);
 
             oView = this.getView();
-            setTimeout(() => {
+            setTimeout(() => { // Setting event listener for video end
                 video = document.querySelector("#video-player");
                 video.addEventListener("ended", () => {
                     this.videoEnded();
@@ -23,6 +24,8 @@ sap.ui.define([
         },
         videoEnded: function () {
             oView.byId("btn-forward").setEnabled(true);
+
+            // Message box for replaying the video, or confirming to proceed to summary
             MessageBox.confirm(getI18nText("replayMB", that), {
                 actions: [getI18nText("yes", that), getI18nText("proceedToSummaryMB", that)],
                 emphasizedAction: getI18nText("proceedToSummaryMB", that),
@@ -51,6 +54,7 @@ sap.ui.define([
 
             sap.ui.getCore().getConfiguration().setLanguage(lang);
 
+            // If the form is not filled, navigate back to startpage
             let data = this.getOwnerComponent().getModel("formValues").getProperty("/entry");
             for (let values in data) {
                 if (data[values] === "") {
@@ -58,6 +62,8 @@ sap.ui.define([
                     return;
                 }
             }
+
+            // Resetting the view
             oView.byId("btn-forward").setEnabled(false);
             video.play();
         }

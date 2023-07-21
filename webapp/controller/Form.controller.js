@@ -10,6 +10,7 @@ sap.ui.define([
         onInit: function () {
             that = this;
 
+            // Settings on nav to this view
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             oRouter.getRoute("form").attachPatternMatched(this._onRouteMatched, this);
 
@@ -20,6 +21,7 @@ sap.ui.define([
                 oView.byId("company")
             ];
 
+            // Set model for default state of the view
             setTimeout(() => {
                 UI = {
                     form: {
@@ -38,6 +40,7 @@ sap.ui.define([
         formCheck: function () {
             let error = false;
 
+            // Check if all inputs are filled with correct input lengths
             inputs.forEach((input) => {
                 let value = input.getValue();
                 let id = input.getId().split("--");
@@ -56,7 +59,7 @@ sap.ui.define([
 
                     input.setValueStateText(getI18nText("dnm" + lim + "Length", that, [param]));
                     error = true;
-                } else {
+                } else { // Check if input is letters (and spaces) only
                     switch (id) {
                         case "name":
                             if (!value.match(/^[ \p{L}]+$/u) || value.split(" ").length > 2) {
@@ -81,6 +84,7 @@ sap.ui.define([
                 }
             });
 
+            // If everything is correct, enable button to navigate to video view
             if (!error) {
                 let data = this.getOwnerComponent().getModel("formValues").getProperty("/entry");
                 oView.byId("toVideo").setVisible(true);
@@ -88,15 +92,15 @@ sap.ui.define([
                 oView.byId("toVideo").setVisible(false);
             }
         },
-        navForward: function () {
+        navForward: function () { // Navigate to video/summary view - depending on editForm state
             if (this.getOwnerComponent().getModel("nav").getProperty("/editForm")) {
                 this.getOwnerComponent().getModel("nav").setProperty("/editForm", false);
                 this.getOwnerComponent().getRouter().navTo("summary", {language: lang});
             } else
                 this.getOwnerComponent().getRouter().navTo("video", {language: lang});
         },
-        navBack: function () {
-            if (this.getOwnerComponent().getModel("nav").getProperty("/editForm")) {
+        navBack: function () { // Navigate to starpage/summary view - depending on editForm state
+            if (this.getOwnerComponent().getModel("nav").getProperty("/editForm")) { // If editForm is true, restore values from backup
                 let values = copyObject(this.getOwnerComponent().getModel("backUp").getProperty("/entry"));
                 this.getOwnerComponent().getModel("formValues").setProperty("/entry", values);
 
@@ -112,6 +116,7 @@ sap.ui.define([
 
             sap.ui.getCore().getConfiguration().setLanguage(lang);
 
+            // Different texts for different view states
             setTimeout(() => {
                 let oData;
                 if (this.getOwnerComponent().getModel("nav").getProperty("/editForm")) {

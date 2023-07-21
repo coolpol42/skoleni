@@ -15,6 +15,7 @@ sap.ui.define([
 
         },
         onSelect: function (oEvent) {
+            // Getting language code from the selected tile and setting it as navTo parameter
             var language = oEvent.getSource().getBindingContext().getProperty("code").toLowerCase();
             this.getOwnerComponent().getRouter().navTo("form", {
                 "language": language
