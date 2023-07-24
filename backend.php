@@ -12,7 +12,7 @@ header('Access-Control-Allow-Headers: Content-Type');
 //$conn = new mysqli($host, $username, $password, $database);
 
 // Check connection
-
+$address = "webapp/src/data/tmp.json";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -44,20 +44,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $conn = new PDO("sqlsrv:server = $server; Database = $db", $user, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $stmt = $conn->prepare('INSERT INTO Entries (FirstName, LastName, Company, DateOfEntry) VALUES (:first_name, :last_name, :company, CURRENT_TIMESTAMP)');
+            $stmt = $conn->prepare('INSERT INTO Entries (FirstName, LastName, Company, DateOfEntry) VALUES (:first_name, :last_name, :company, :date_of_entry)');
 
             // Bind parameters to the SQL statement
             $stmt->bindParam(':first_name', $entry["FirstName"]);
             $stmt->bindParam(':last_name', $entry["LastName"]);
             $stmt->bindParam(':company', $entry["Company"]);
+            $date = date("Y-m-d H:i:s");
+            $stmt->bindParam(':date_of_entry', $date);
 
             $stmt->execute();
-            echo "saveSuccess";
-        } catch (PDOException $e) {
-            $address = "webapp/src/data/tmp.json";
-            $file = json_decode(file_get_contents($address));
+            if (file_exists($address) && count(json_decode(file_get_contents($address))->entries) > 0) {
+                $oldEntries = json_decode(file_get_contents($address))->entries;
+                foreach ($oldEntries as $oldEntry) {
+                    $stmt->bindParam(':first_name', $oldEntry->FirstName);
+                    $stmt->bindParam(':last_name', $oldEntry->LastName);
+                    $stmt->bindParam(':company', $oldEntry->Company);
+                    $stmt->bindParam(':date_of_entry', $oldEntry->DateOfEntry);
+                    $stmt->execute();
+                }
+                $file = fopen($address, "w");
+                fwrite($file, '{"entries":[]}');
+                fclose($file);
+            }
 
-            $entry["tmpId"] = $file->entries[count($file->entries) - 1]->tmpId + 1;
+            echo "saveSuccess";
+
+        } catch (PDOException $e) {
+
+            $file = json_decode(file_get_contents($address));
             $entry["DateOfEntry"] = date("Y-m-d H:i:s");
 
             if (!file_exists($address)) {

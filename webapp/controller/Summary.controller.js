@@ -122,7 +122,7 @@ sap.ui.define([
                         });
                     }
                 }
-            }, 500);
+            }, 1000);
 
         },
         reset: function () {
