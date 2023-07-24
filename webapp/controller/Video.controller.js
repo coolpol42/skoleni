@@ -27,11 +27,11 @@ sap.ui.define([
 
             // Message box for replaying the video, or confirming to proceed to summary
             MessageBox.confirm(getI18nText("replayMB", that), {
-                actions: [getI18nText("yes", that), getI18nText("proceedToSummaryMB", that)],
+                actions: [getI18nText("replayButton", that), getI18nText("proceedToSummaryMB", that)],
                 emphasizedAction: getI18nText("proceedToSummaryMB", that),
                 title: getI18nText("replay", that),
                 onClose: function (sAction) {
-                    if (sAction === getI18nText("yes", that)) {
+                    if (sAction === getI18nText("replayButton", that)) {
                         video.play();
                     } else {
                         that.navForward();
@@ -40,6 +40,8 @@ sap.ui.define([
             });
         },
         navForward: function () {
+            video.currentTime = 0;
+            video.pause();
             this.getOwnerComponent().getModel("nav").setProperty("/videoViewed", true);
             this.getOwnerComponent().getRouter().navTo("summary", {language: lang});
         },
