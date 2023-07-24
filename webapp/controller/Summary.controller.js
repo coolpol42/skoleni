@@ -50,6 +50,9 @@ sap.ui.define([
                         errors.print = [true, "printNotMade"];
                     }
                     console.log(message);
+                },
+                error: function (message) {
+                    console.info("DDD");
                 }
             });
 
@@ -96,6 +99,9 @@ sap.ui.define([
                         MessageBox.warning(list, {
                             actions: [MessageBox.Action.OK],
                             title: getI18nText("pnsSuccess", that),
+                            onClose: function () {
+                                that.reset();
+                            }
                         });
                     } else if (errors.save[1].getDescription() === getI18nText("dataError", that)) {
                         MessageBox.error(list, {
@@ -130,16 +136,16 @@ sap.ui.define([
 
             sap.ui.getCore().getConfiguration().setLanguage(lang);
 
-            // let data = this.getOwnerComponent().getModel("formValues").getProperty("/entry");
-            // for (let values in data) {
-            //     if (data[values] === "") {
-            //         this.getOwnerComponent().getRouter().navTo("startpage");
-            //         return;
-            //     }
-            // }
-            // if (this.getOwnerComponent().getModel("nav").getProperty("/videoViewed") === false) {
-            //     this.getOwnerComponent().getRouter().navTo("video", {language: lang});
-            // }
+            let data = this.getOwnerComponent().getModel("formValues").getProperty("/entry");
+            for (let values in data) {
+                if (data[values] === "") {
+                    this.getOwnerComponent().getRouter().navTo("startpage");
+                    return;
+                }
+            }
+            if (this.getOwnerComponent().getModel("nav").getProperty("/videoViewed") === false) {
+                this.getOwnerComponent().getRouter().navTo("video", {language: lang});
+            }
         }
     });
 });

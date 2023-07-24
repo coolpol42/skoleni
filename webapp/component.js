@@ -26,9 +26,9 @@ sap.ui.define([
 
             var oData = {
                 entry: {
-                    name: "",
-                    surname: "",
-                    company: ""
+                    Name: "",
+                    LastName: "",
+                    Company: ""
                 }
             }
             oModel = new JSONModel(oData);

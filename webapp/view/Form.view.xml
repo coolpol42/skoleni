@@ -15,19 +15,19 @@
                                 gridTemplateRows="2rem 4rem 2rem 4rem 4rem"
                                 gridGap="1.5rem 10px"
                                 width="100%">
-                            <Text text="{i18n>name}" class="text-cell"/>
-                            <Text text="{i18n>surname}" class="text-cell"/>
-                            <Input class="input" id="name" change=".formCheck" maxLength="30"
-                                   value="{formValues>/entry/name}"/>
-                            <Input class="input" id="surname" change=".formCheck" maxLength="30"
-                                   value="{formValues>/entry/surname}"/>
-                            <Text text="{i18n>company}" class="text-cell">
+                            <Text text="{i18n>Name}" class="text-cell"/>
+                            <Text text="{i18n>LastName}" class="text-cell"/>
+                            <Input class="input" id="Name" change=".formCheck" maxLength="30"
+                                   value="{formValues>/entry/Name}"/>
+                            <Input class="input" id="LastName" change=".formCheck" maxLength="30"
+                                   value="{formValues>/entry/LastName}"/>
+                            <Text text="{i18n>Company}" class="text-cell">
                                 <layoutData>
                                     <grid:GridItemLayoutData gridColumn="1 / 3"/>
                                 </layoutData>
                             </Text>
-                            <Input class="input" id="company" change=".formCheck" maxLength="70"
-                                   value="{formValues>/entry/company}">
+                            <Input class="input" id="Company" change=".formCheck" maxLength="70"
+                                   value="{formValues>/entry/Company}">
                                 <layoutData>
                                     <grid:GridItemLayoutData gridColumn="1 / 3"/>
                                 </layoutData>

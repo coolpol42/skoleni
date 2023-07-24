@@ -22,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $data = json_decode($_POST['data']);
     $entry = array(
-        "name" => $data->name,
-        "surname" => $data->surname,
-        "company" => $data->company,
+        "Name" => $data->Name,
+        "LastName" => $data->LastName,
+        "Company" => $data->Company,
     );
     foreach ($data as $key => $value) {
         $entry[$key] = trim(filter_var($value, FILTER_SANITIZE_STRING));
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $file = json_decode(file_get_contents($address));
 
             $entry["tmpId"] = $file->entries[count($file->entries) - 1]->tmpId + 1;
-            $entry["dtm-added"] = date("Y-m-d H:i:s");
+            $entry["DateOfEntry"] = date("Y-m-d H:i:s");
 
             if (!file_exists($address)) {
                 $file = fopen($address, "w");

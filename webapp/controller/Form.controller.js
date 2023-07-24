@@ -16,9 +16,9 @@ sap.ui.define([
 
             oView = this.getView();
             inputs = [
-                oView.byId("name"),
-                oView.byId("surname"),
-                oView.byId("company")
+                oView.byId("Name"),
+                oView.byId("LastName"),
+                oView.byId("Company")
             ];
 
             // Set model for default state of the view
@@ -61,7 +61,7 @@ sap.ui.define([
                     error = true;
                 } else { // Check if input is letters (and spaces) only
                     switch (id) {
-                        case "name":
+                        case "Name":
                             if (!value.match(/^[ \p{L}]+$/u) || value.split(" ").length > 2) {
                                 input.setValueState("Error");
                                 input.setValueStateText(getI18nText("dnmPatternName", that));
@@ -69,10 +69,10 @@ sap.ui.define([
                                 inputError = true;
                             }
                             break;
-                        case "surname":
+                        case "LastName":
                             if (!value.match(/^[\p{L}]+$/u)) {
                                 input.setValueState("Error");
-                                input.setValueStateText(getI18nText("dnmPatternSurname", that));
+                                input.setValueStateText(getI18nText("dnmPatternLastName", that));
                                 error = true;
                                 inputError = true;
                             }
