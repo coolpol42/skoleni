@@ -15,10 +15,10 @@
                                 gridTemplateRows="2rem 4rem 2rem 4rem 4rem"
                                 gridGap="1.5rem 10px"
                                 width="100%">
-                            <Text text="{i18n>Name}" class="text-cell"/>
+                            <Text text="{i18n>FirstName}" class="text-cell"/>
                             <Text text="{i18n>LastName}" class="text-cell"/>
-                            <Input class="input" id="Name" change=".formCheck" maxLength="30"
-                                   value="{formValues>/entry/Name}"/>
+                            <Input class="input" id="FirstName" change=".formCheck" maxLength="30"
+                                   value="{formValues>/entry/FirstName}"/>
                             <Input class="input" id="LastName" change=".formCheck" maxLength="30"
                                    value="{formValues>/entry/LastName}"/>
                             <Text text="{i18n>Company}" class="text-cell">

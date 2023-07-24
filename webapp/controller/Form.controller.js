@@ -16,7 +16,7 @@ sap.ui.define([
 
             oView = this.getView();
             inputs = [
-                oView.byId("Name"),
+                oView.byId("FirstName"),
                 oView.byId("LastName"),
                 oView.byId("Company")
             ];
@@ -61,7 +61,7 @@ sap.ui.define([
                     error = true;
                 } else { // Check if input is letters (and spaces) only
                     switch (id) {
-                        case "Name":
+                        case "FirstName":
                             if (!value.match(/^[ \p{L}]+$/u) || value.split(" ").length > 2) {
                                 input.setValueState("Error");
                                 input.setValueStateText(getI18nText("dnmPatternName", that));

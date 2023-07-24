@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $data = json_decode($_POST['data']);
     $entry = array(
-        "Name" => $data->Name,
+        "FirstName" => $data->FirstName,
         "LastName" => $data->LastName,
         "Company" => $data->Company,
     );
@@ -35,8 +35,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (!$dataError) {
-        $error = true;
-        if ($error) {
+        try {
+            $db = "db_TDRIVERS";
+            $user = "lczadmin";
+            $password = "SkfChodov2021+";
+            $server = "tcp:digitalization.database.windows.net,1433";
+
+            $conn = new PDO("sqlsrv:server = $server; Database = $db", $user, $password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $stmt = $conn->prepare('INSERT INTO Entries (FirstName, LastName, Company, DateOfEntry) VALUES (:first_name, :last_name, :company, CURRENT_TIMESTAMP)');
+
+            // Bind parameters to the SQL statement
+            $stmt->bindParam(':first_name', $entry["FirstName"]);
+            $stmt->bindParam(':last_name', $entry["LastName"]);
+            $stmt->bindParam(':company', $entry["Company"]);
+
+            $stmt->execute();
+            echo "saveSuccess";
+        } catch (PDOException $e) {
             $address = "webapp/src/data/tmp.json";
             $file = json_decode(file_get_contents($address));
 
@@ -54,6 +71,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } else
         echo "dataError";
-
 }
 ?>

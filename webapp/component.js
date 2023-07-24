@@ -26,7 +26,7 @@ sap.ui.define([
 
             var oData = {
                 entry: {
-                    Name: "",
+                    FirstName: "",
                     LastName: "",
                     Company: ""
                 }

@@ -136,16 +136,16 @@ sap.ui.define([
 
             sap.ui.getCore().getConfiguration().setLanguage(lang);
 
-            let data = this.getOwnerComponent().getModel("formValues").getProperty("/entry");
-            for (let values in data) {
-                if (data[values] === "") {
-                    this.getOwnerComponent().getRouter().navTo("startpage");
-                    return;
-                }
-            }
-            if (this.getOwnerComponent().getModel("nav").getProperty("/videoViewed") === false) {
-                this.getOwnerComponent().getRouter().navTo("video", {language: lang});
-            }
+            // let data = this.getOwnerComponent().getModel("formValues").getProperty("/entry");
+            // for (let values in data) {
+            //     if (data[values] === "") {
+            //         this.getOwnerComponent().getRouter().navTo("startpage");
+            //         return;
+            //     }
+            // }
+            // if (this.getOwnerComponent().getModel("nav").getProperty("/videoViewed") === false) {
+            //     this.getOwnerComponent().getRouter().navTo("video", {language: lang});
+            // }
         }
     });
 });

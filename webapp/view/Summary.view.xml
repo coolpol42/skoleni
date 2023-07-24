@@ -16,8 +16,8 @@
                             gridTemplateRows="repeat(2rem, 5)"
                             gridGap="1.5rem 10px"
                             width="100%">
-                        <Text text="{i18n>Name}:" class="text-cell label"/>
-                        <Text text="{formValues>/entry/Name}" class="text-cell value"/>
+                        <Text text="{i18n>FirstName}:" class="text-cell label"/>
+                        <Text text="{formValues>/entry/FirstName}" class="text-cell value"/>
                         <Text text="{i18n>LastName}:" class="text-cell label"/>
                         <Text text="{formValues>/entry/LastName}" class="text-cell value"/>
                         <Text text="{i18n>Company}:" class="text-cell label"/>
