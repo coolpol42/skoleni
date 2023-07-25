@@ -25,34 +25,26 @@ sap.ui.define([
             this.getOwnerComponent().getRouter().navTo("form", {language: lang});
         },
         printAndSave: function () {
+            this.getView().setBusy(true);
             let errors = {
                 save: [undefined, ""],
-                print: [false, "printSuccess"]
+                print: [undefined, ""]
             };
-
             let entry = this.getOwnerComponent().getModel("formValues").getProperty("/entry");
 
-            // TODO: SAVE
             jQuery.ajax({
                 url: backendUrl,
                 method: "POST",
                 data: {
-                    address: window.location.origin,
+                    action: "save",
                     data: JSON.stringify(this.getOwnerComponent().getModel("formValues").getProperty("/entry"))
                 },
                 success: function (message) {
-                    if (!message.includes("Success")) {
-                        errors.save = [true, message];
-                    } else
-                        errors.save = [false, message];
-
-                    if (message === "dataError") {
-                        errors.print = [true, "printNotMade"];
-                    }
+                    errors = JSON.parse(message);
                     console.log(message);
                 },
                 error: function (message) {
-                    console.info("DDD");
+                    console.info("DDD"); // TODO: can't be connected to the script
                 }
             });
 
@@ -70,15 +62,29 @@ sap.ui.define([
             let interval = setInterval(() => {
                 if (errors.save[0] !== undefined || errors.print[0] !== undefined) {
                     clearInterval(interval);
+                    this.getView().setBusy(false);
+
+                    let actions = [MessageBox.Action.OK];
+                    let emphasizedAction = "";
+
+                    if (errors.save[1] === "dataError") {
+                        actions.push(getI18nText("editValues", that));
+                        emphasizedAction = getI18nText("editValues", that);
+                    } else if (errors.print[1] === "printError") {
+                        actions.push(getI18nText("printAgain", that));
+                        emphasizedAction = getI18nText("printAgain", that);
+                    }
+
+
                     errors.save[1] = new StandardListItem({
                         title: getI18nText("toSave", this).toUpperCase(),
                         description: getI18nText(errors.save[1], this),
-                        icon: (errors.save[0] ? (errors.save[1].includes("Error") ? "sap-icon://error" : "sap-icon://warning") : "sap-icon://accept")
+                        icon: getIcon(errors.save[0])
                     });
                     errors.print[1] = new StandardListItem({
                         title: getI18nText("toPrint", this).toUpperCase(),
                         description: getI18nText(errors.print[1], this),
-                        icon: (errors.print[0] ? "sap-icon://error" : "sap-icon://accept"),
+                        icon: getIcon(errors.print[0]),
                     });
 
                     // Creating list of items for the messageBox
@@ -87,48 +93,112 @@ sap.ui.define([
                         items: [errors.save[1], errors.print[1]],
                         showSeparators: "None"
                     });
-                    if (!errors.save[0] && !errors.print[0]) {
-                        MessageBox.success(list, {
-                            actions: [MessageBox.Action.OK],
-                            title: getI18nText("pnsSuccess", that),
-                            onClose: function () {
-                                that.reset();
-                            }
-                        });
-                    } else if (errors.save[0] && !errors.print[0]) {
-                        MessageBox.warning(list, {
-                            actions: [MessageBox.Action.OK],
-                            title: getI18nText("pnsSuccess", that),
-                            onClose: function () {
-                                that.reset();
-                            }
-                        });
-                    } else if (errors.save[1].getDescription() === getI18nText("dataError", that)) {
-                        MessageBox.error(list, {
-                            actions: [MessageBox.Action.OK, getI18nText("editValues", that)],
-                            emphasizedAction: getI18nText("editValues", that),
-                            title: getI18nText("pnsError", that),
-                            onClose: function (sAction) {
-                                if (sAction === getI18nText("editValues", that)) {
-                                    that.navToForm();
+
+                    switch (Math.max(errors.save[0], errors.print[0])) {
+                        case 0:
+                            MessageBox.success(list, {
+                                actions: actions,
+                                title: getI18nText("pnsSuccess", that),
+                                emphasizedAction: emphasizedAction,
+                                onClose: function (sAction) {
+                                    that.onCloseMB(sAction);
                                 }
-                            }
-                        });
-                    } else {
-                        MessageBox.error(list, {
-                            actions: [MessageBox.Action.OK, getI18nText("printAgain", that)],
-                            emphasizedAction: getI18nText("printAgain", that),
-                            title: getI18nText("pnsError", that),
-                        });
+                            });
+                            break;
+                        case 1:
+                            MessageBox.warning(list, {
+                                actions: actions,
+                                title: getI18nText("pnsWarning", that),
+                                emphasizedAction: emphasizedAction,
+                                onClose: function (sAction) {
+                                    that.onCloseMB(sAction);
+                                }
+                            });
+                            break;
+                        case 2:
+                            MessageBox.error(list, {
+                                actions: actions,
+                                title: getI18nText("pnsError", that),
+                                emphasizedAction: emphasizedAction,
+                                onClose: function (sAction) {
+                                    that.onCloseMB(sAction);
+                                }
+                            });
                     }
+
+                    // if (!errors.save[0] && !errors.print[0]) {
+                    //     MessageBox.success(list, {
+                    //         actions: [MessageBox.Action.OK],
+                    //         title: getI18nText("pnsSuccess", that),
+                    //         onClose: function () {
+                    //             that.reset();
+                    //         }
+                    //     });
+                    // } else if (errors.save[0] && !errors.print[0]) {
+                    //     MessageBox.warning(list, {
+                    //         actions: [MessageBox.Action.OK],
+                    //         title: getI18nText("pnsSuccess", that),
+                    //         onClose: function () {
+                    //             that.reset();
+                    //         }
+                    //     });
+                    // } else if (errors.save[1].getDescription() === getI18nText("dataError", that)) {
+                    //     MessageBox.error(list, {
+                    //         actions: [MessageBox.Action.OK, getI18nText("editValues", that)],
+                    //         emphasizedAction: getI18nText("editValues", that),
+                    //         title: getI18nText("pnsError", that),
+                    //         onClose: function (sAction) {
+                    //             if (sAction === getI18nText("editValues", that)) {
+                    //                 that.navToForm();
+                    //             }
+                    //         }
+                    //     });
+                    // } else {
+                    //     MessageBox.error(list, {
+                    //         actions: [MessageBox.Action.OK, getI18nText("printAgain", that)],
+                    //         emphasizedAction: getI18nText("printAgain", that),
+                    //         title: getI18nText("pnsError", that),
+                    //     });
+                    // }
                 }
             }, 1000);
 
+            function getIcon(errorState) {
+                switch (errorState) {
+                    case 0:
+                        return "sap-icon://accept";
+                    case 1:
+                        return "sap-icon://warning";
+                    case 2:
+                        return "sap-icon://error";
+                }
+            }
+
         },
-        reset: function () {
-            this.getOwnerComponent().refresh();
-            this.getOwnerComponent().getRouter().navTo("startpage");
+        onCloseMB: function (sAction) {
+            if (sAction === getI18nText("editValues", that)) {
+                that.navToForm();
+            } else {
+                that.reset();
+            }
         },
+        print: function () {
+            jQuery.ajax({
+                url: backendUrl,
+                method: "POST",
+                data: {
+                    action: "print",
+                    data: JSON.stringify(this.getOwnerComponent().getModel("formValues").getProperty("/entry"))
+                },
+                success: function (message) {
+                    return message;
+                }
+            });
+        },
+        // reset: function () {
+        //     this.getOwnerComponent().refresh();
+        //     this.getOwnerComponent().getRouter().navTo("startpage");
+        // },
         _onRouteMatched: function (oEvent) {
 
             var langugage = oEvent.getParameter("arguments").language.toLowerCase();
