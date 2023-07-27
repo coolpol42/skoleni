@@ -1,45 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Title</title>
+</head>
 <style>
-    @font-face {
-        font-family: "72";
-        src: url("fonts/72-Regular.ttf") format("truetype");
-        font-weight: normal;
-        font-style: normal;
-    }
-    @font-face {
-        font-family: "72";
-        src: url("fonts/72-Italic.ttf") format("truetype");
-        font-weight: normal;
-        font-style: italic;
-    }
-    @font-face {
-        font-family: "72";
-        src: url("fonts/72-Bold.ttf") format("truetype");
-        font-weight: bold;
-        font-style: normal;
-    }
-    @font-face {
-        font-family: "72-C";
-        src: url("fonts/72-Condensed.ttf") format("truetype");
-        font-weight: normal;
-    }
-    @font-face {
-        font-family: "72-C";
-        src: url("fonts/72-CondensedBold.ttf") format("truetype");
-        font-weight: bold;
-    }
-
     body, html{
         padding: 0;
         margin: 0;
+        font-family: sans-serif;
     }
     #container{
         padding: 20px 0;
         border: 1px solid black;
         width: 408px;
         box-sizing: border-box;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
     #container div{
         width: 300px;
@@ -47,43 +22,50 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin: auto;
     }
-    p, i{
+
+    p {
         text-align: center;
-        margin: 0;
-        padding: 5px 0 10px;
+        margin: 0 !important;
+        padding: 10px 0 10px !important;
         line-height: 1.2em;
-        width: 100%;
+        width: 300px;
+        display: block;
     }
     #name{
         text-transform: uppercase;
-        font-family: "72", sans-serif;
         font-weight: bold;
         font-size: 30px;
     }
     #company{
-        font-family: "72", sans-serif;
         font-weight: normal;
         font-size: 22px;
         border-bottom: 1px solid black;
     }
-    i{
-        font-family: "72", sans-serif;
+
+    #date {
         font-weight: normal;
         font-size: 17px;
+        font-style: italic;
     }
     section{
+        position: relative;
         height: 20px;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        width: 300px;
         margin-top: 10px;
-        font-size: 20px;
         box-sizing: border-box;
-        padding: 0 20px;
     }
-    section img{
-        height: 100%;
+
+    section svg {
+        height: 20px;
+        position: relative;
+        float: left;
+    }
+
+    section b {
+        float: right;
+        font-weight: 200;
+        font-size: 25px;
     }
 </style>

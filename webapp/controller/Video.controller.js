@@ -51,8 +51,8 @@ sap.ui.define([
 
         _onRouteMatched: function (oEvent) {
 
-            var langugage = oEvent.getParameter("arguments").language.toLowerCase();
-            lang = langCodes.includes(langugage) ? langugage : "eng";
+            var language = oEvent.getParameter("arguments").language.toLowerCase();
+            lang = langCodes.includes(language) ? language : "eng";
 
             sap.ui.getCore().getConfiguration().setLanguage(lang);
 

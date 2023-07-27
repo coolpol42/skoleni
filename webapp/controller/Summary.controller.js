@@ -37,11 +37,15 @@ sap.ui.define([
                 method: "POST",
                 data: {
                     action: "save",
-                    data: JSON.stringify(this.getOwnerComponent().getModel("formValues").getProperty("/entry"))
+                    data: JSON.stringify(this.getOwnerComponent().getModel("formValues").getProperty("/entry")),
+                    language: lang,
+                    texts: JSON.stringify({
+                        "DateOfEntry": getI18nText("DateOfEntry", that),
+                    })
                 },
                 success: function (message) {
-                    errors = JSON.parse(message);
                     console.log(message);
+                    errors = JSON.parse(message);
                 },
                 error: function (message) {
                     console.info("DDD"); // TODO: can't be connected to the script
@@ -201,8 +205,8 @@ sap.ui.define([
         // },
         _onRouteMatched: function (oEvent) {
 
-            var langugage = oEvent.getParameter("arguments").language.toLowerCase();
-            lang = langCodes.includes(langugage) ? langugage : "eng";
+            var language = oEvent.getParameter("arguments").language.toLowerCase();
+            lang = langCodes.includes(language) ? language : "eng";
 
             sap.ui.getCore().getConfiguration().setLanguage(lang);
 
