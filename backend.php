@@ -10,7 +10,6 @@ require 'vendor/autoload.php';
 
 // Check connection
 $address = "webapp/src/data/tmp.json";
-$printer = "ET0021B765677D";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $texts = $_POST["texts"];
@@ -18,26 +17,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "save" => array(),
         "print" => array()
     );
-    if($_POST["action"] === "save") {
+    $dataError = false;
 
-        $error = false;
-        $dataError = false;
-
-        $data = json_decode($_POST['data'], true);
-        $entry = array(
-            "FirstName" => $data["FirstName"],
-            "LastName" => $data["LastName"],
-            "Company" => $data["Company"],
-            "Language" => $_POST["language"]
-        );
-        foreach ($entry as $key => $value) {
-            $entry[$key] = trim(filter_var($value, FILTER_SANITIZE_STRING));
-            if ($entry[$key] == "") {
-                $dataError = true;
-                break;
-            }
+    $data = json_decode($_POST['data'], true);
+    $entry = array(
+        "FirstName" => $data["FirstName"],
+        "LastName" => $data["LastName"],
+        "Company" => $data["Company"],
+        "Language" => $_POST["language"]
+    );
+    foreach ($entry as $key => $value) {
+        $entry[$key] = trim(filter_var($value, FILTER_SANITIZE_STRING));
+        if ($entry[$key] == "") {
+            $dataError = true;
+            break;
         }
-
+    }
+    if($_POST["action"] === "save") {
         if (!$dataError) {
             try {
                 $db = "db_TDRIVERS";
@@ -58,18 +54,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->bindParam(':date_of_entry', $date);
                 $entry["DateOfEntry"] = $date;
 
+                $emptyFile = '{"entries":[]}';
+
                 $stmt->execute();
                 if (file_exists($address) && count(json_decode(file_get_contents($address))->entries) > 0) {
-                    $oldEntries = json_decode(file_get_contents($address))->entries;
-                    foreach ($oldEntries as $oldEntry) {
-                        $stmt->bindParam(':first_name', $oldEntry->FirstName);
-                        $stmt->bindParam(':last_name', $oldEntry->LastName);
-                        $stmt->bindParam(':company', $oldEntry->Company);
-                        $stmt->bindParam(':date_of_entry', $oldEntry->DateOfEntry);
-                        $stmt->execute();
+                    $oldEntries = json_decode(file_get_contents($address));
+                    while (count($oldEntries->entries) > 0) {
+                        $oldEntry = $oldEntries->entries[0];
+                        try {
+                            $stmt->bindParam(':first_name', $oldEntry->FirstName);
+                            $stmt->bindParam(':last_name', $oldEntry->LastName);
+                            $stmt->bindParam(':company', $oldEntry->Company);
+                            $stmt->bindParam(':date_of_entry', $oldEntry->DateOfEntry);
+                            $stmt->execute();
+                            array_shift($oldEntries->entries);
+                        } catch (PDOException $e) {
+                            $emptyFile = json_encode($oldEntries, JSON_PRETTY_PRINT);
+                            break;
+                        }
                     }
                     $file = fopen($address, "w");
-                    fwrite($file, '{"entries":[]}');
+                    fwrite($file, $emptyFile);
                     fclose($file);
                 }
 
@@ -98,19 +103,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     elseif ($_POST["action"] === "print"){
-
+        $out["print"] = print_label($entry, json_decode($texts, true));
     }
-    $out["print"] = array(0, "printSuccess");
     echo json_encode($out);
 }
 function print_label($data, $texts)
 {
-    $fp = pfsockopen("192.168.1.18", 9100);
+    $fp = pfsockopen("192.168.10.18", 9100);
 
-    if (!$fp) {
-        echo "Error: Unable to open a connection to the server.";
-        exit;
-    }
+    if (!$fp)
+        return array(2, "printerNotFound");
+
 
     $toPrint = file_get_contents("webapp/src/label/style.html");
     $data["DateOfEntry"] = date_create_from_format("Y-m-d H:i:s", $data["DateOfEntry"])->format("d.m.Y (H:i)");
@@ -199,6 +202,7 @@ function print_label($data, $texts)
 
 // Close the connection
     fclose($fp);
+    return array(0, "printSuccess");
 
 // Do something with the response
 //    echo $response;

@@ -1,6 +1,7 @@
 {
   "require": {
     "mpdf/mpdf": "^8.1",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-pdo": "*"
   }
 }
