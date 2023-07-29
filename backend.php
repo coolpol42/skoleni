@@ -114,7 +114,6 @@ function print_label($data, $texts)
     if (!$fp)
         return array(2, "printerNotFound");
 
-
     $toPrint = file_get_contents("webapp/src/label/style.html");
     $data["DateOfEntry"] = date_create_from_format("Y-m-d H:i:s", $data["DateOfEntry"])->format("d.m.Y (H:i)");
 

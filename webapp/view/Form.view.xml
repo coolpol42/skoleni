@@ -33,7 +33,7 @@
                                 </layoutData>
                             </Input>
 
-                            <Button icon="sap-icon://decline" visible="{UI>/button/cancel}" text="{i18n>cancel}"
+                            <Button icon="sap-icon://cancel" visible="{UI>/button/cancel}" text="{i18n>cancel}"
                                     type="Transparent"
                                     class="button" press=".navBack">
                                 <layoutData>

@@ -43,19 +43,22 @@ sap.ui.define([
                 success: function (message) {
                     console.log(message);
                     printTimes++;
-                    if (message.includes(">")) {
-                        message = message.split(">");
+                    if (message.includes(">")) { // Message can include Warnings/Errors from the PHP script
+                        message = message.split(">"); // Removal of the warnings/errors from the message
                         message = message[message.length - 1];
                     }
                     errors = JSON.parse(message);
                 },
-                error: function (message) {
-                    console.info("DDD"); // TODO: can't be connected to the script
+                error: function () { // If the connection to the backend fails
+                    errors = {
+                        save: [3, "sConnectionError"],
+                        print: [3, "printNotMade"]
+                    }
                 }
             });
         },
         messageBox: function (errors, actions, emphasizedAction, list) {
-            switch (Math.max(errors.save[0], errors.print[0])) {
+            switch (Math.max(errors.save[0], errors.print[0])) { // Getting the highest error state
                 case 0:
                     MessageBox.success(list, {
                         actions: actions,
@@ -85,11 +88,19 @@ sap.ui.define([
                             that.onCloseMB(sAction);
                         }
                     });
+                    break;
+                case 3:
+                    MessageBox.error(list, {
+                        actions: [MessageBox.Action.OK],
+                        title: getI18nText("connectionError", that),
+                        onClose: function (sAction) {
+                            that.onCloseMB(sAction);
+                        }
+                    });
             }
         },
         printAndSave: function () {
             this.sendRequest("save");
-            // Setting values for the list items for the messageBox
 
             let interval = setInterval(() => {
                 if (errors.save[0] !== undefined || errors.print[0] !== undefined) {
@@ -99,6 +110,7 @@ sap.ui.define([
                     let actions = [MessageBox.Action.OK];
                     let emphasizedAction = "";
 
+                    // Setting the actions and emphasizedAction for the messageBox according to the error state
                     if (errors.save[1] === "dataError") {
                         actions.push(getI18nText("editValues", that));
                         emphasizedAction = getI18nText("editValues", that);
@@ -141,7 +153,7 @@ sap.ui.define([
             }
         },
         print: function () {
-            if (printTimes < 3) {
+            if (printTimes < 3) { // If the print fails 3 times, the print cannot be repeated
                 errors.print = [undefined, ""]
                 this.sendRequest("print");
             } else
@@ -177,6 +189,7 @@ sap.ui.define([
         //     this.getOwnerComponent().getRouter().navTo("startpage");
         // },
         _onRouteMatched: function (oEvent) {
+            // Resetting the printTimes and errors
             printTimes = 0;
             errors = {
                 save: [],
@@ -188,6 +201,7 @@ sap.ui.define([
 
             sap.ui.getCore().getConfiguration().setLanguage(lang);
 
+            // // If the form is not filled, the user is redirected to the startpage
             // let data = this.getOwnerComponent().getModel("formValues").getProperty("/entry");
             // for (let values in data) {
             //     if (data[values] === "") {
@@ -195,6 +209,7 @@ sap.ui.define([
             //         return;
             //     }
             // }
+            // // If the video is not viewed, the user is redirected to the video view
             // if (this.getOwnerComponent().getModel("nav").getProperty("/videoViewed") === false) {
             //     this.getOwnerComponent().getRouter().navTo("video", {language: lang});
             // }
@@ -202,13 +217,15 @@ sap.ui.define([
     });
 });
 
+// Function for getting the icon according to the error state
 function getIcon(errorState) {
     switch (errorState) {
         case 0:
             return "sap-icon://accept";
         case 1:
-            return "sap-icon://warning";
+            return "sap-icon://warning2";
         case 2:
-            return "sap-icon://error";
+        case 3:
+            return "sap-icon://decline";
     }
 }
