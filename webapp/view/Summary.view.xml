@@ -14,7 +14,7 @@
                             gridAutoFlow="Row"
                             gridTemplateColumns="1fr 1fr"
                             gridTemplateRows="repeat(2rem, 5)"
-                            gridGap="1.5rem 10px"
+                            gridGap="1.5rem 20px"
                             width="100%">
                         <Text text="{i18n>FirstName}:" class="text-cell label"/>
                         <Text text="{formValues>/entry/FirstName}" class="text-cell value"/>

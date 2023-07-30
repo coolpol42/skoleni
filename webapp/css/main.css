@@ -49,11 +49,15 @@
     display: flex;
     justify-content: center;
     align-items: stretch;
-    padding: 50px;
+    padding: 1vh 5px !important;
     box-sizing: border-box;
-    height: 94vh;
+    height: 93vh;
 }
 
+#player video {
+    margin: 10px;
+    width: -webkit-fill-available;
+}
 .label {
     text-align: right !important;
 }
@@ -61,8 +65,13 @@
 .value {
     font-weight: 700;
     font-size: 1.8rem;
+    padding-right: 50px;
+    box-sizing: border-box;
 }
 
+.label, .value {
+    justify-content: center;
+}
 .viewed .text-cell {
     font-size: 1.1rem;
     font-weight: 400;

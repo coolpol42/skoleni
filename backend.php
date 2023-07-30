@@ -176,13 +176,13 @@ function print_label($data, $texts)
         'margin_left' => 0]);;
     $mpdf->WriteHTML($toPrint);
 
-//// Save to a file
+// Save to a file
 //    $file_location = "output.pdf";
 //    $mpdf->Output($file_location, 'F');  // 'F' - safe file
 
     $toPrint = $mpdf->Output('', 'S'); // 'S' - return the document as a string
 
-//// To send to the browser:
+// To send to the browser:
 //    $mpdf->Output();
 
 // Set a timeout on the stream
@@ -203,8 +203,6 @@ function print_label($data, $texts)
     fclose($fp);
     return array(0, "printSuccess");
 
-// Do something with the response
-//    echo $response;
 }
 
 ?>
