@@ -184,10 +184,10 @@ sap.ui.define([
 
             }, 1000);
         },
-        // reset: function () {
-        //     this.getOwnerComponent().refresh();
-        //     this.getOwnerComponent().getRouter().navTo("startpage");
-        // },
+        reset: function () {
+            this.getOwnerComponent().refresh();
+            this.getOwnerComponent().getRouter().navTo("startpage");
+        },
         _onRouteMatched: function (oEvent) {
             // Resetting the printTimes and errors
             printTimes = 0;
@@ -201,18 +201,18 @@ sap.ui.define([
 
             sap.ui.getCore().getConfiguration().setLanguage(lang);
 
-            // // If the form is not filled, the user is redirected to the startpage
-            // let data = this.getOwnerComponent().getModel("formValues").getProperty("/entry");
-            // for (let values in data) {
-            //     if (data[values] === "") {
-            //         this.getOwnerComponent().getRouter().navTo("startpage");
-            //         return;
-            //     }
-            // }
-            // // If the video is not viewed, the user is redirected to the video view
-            // if (this.getOwnerComponent().getModel("nav").getProperty("/videoViewed") === false) {
-            //     this.getOwnerComponent().getRouter().navTo("video", {language: lang});
-            // }
+            // If the form is not filled, the user is redirected to the startpage
+            let data = this.getOwnerComponent().getModel("formValues").getProperty("/entry");
+            for (let values in data) {
+                if (data[values] === "") {
+                    this.getOwnerComponent().getRouter().navTo("startpage");
+                    return;
+                }
+            }
+            // If the video is not viewed, the user is redirected to the video view
+            if (this.getOwnerComponent().getModel("nav").getProperty("/videoViewed") === false) {
+                this.getOwnerComponent().getRouter().navTo("video", {language: lang});
+            }
         }
     });
 });
