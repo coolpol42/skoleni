@@ -33,6 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
         }
     }
+    if (!$dataError) {
+        $entry["FirstName"] = ucwords(strtolower($entry["FirstName"]));
+        $entry["LastName"] = ucwords(strtolower($entry["LastName"]));
+    }
     if($_POST["action"] === "save") {
         if (!$dataError) {
             try {
@@ -109,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 function print_label($data, $texts)
 {
-    $fp = pfsockopen("192.168.10.18", 9100);
+    $fp = pfsockopen("192.168.1.18", 9100);
 
     if (!$fp)
         return array(2, "printerNotFound");
