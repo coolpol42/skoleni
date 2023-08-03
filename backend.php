@@ -27,7 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "Language" => $_POST["language"]
     );
     foreach ($entry as $key => $value) {
-        $entry[$key] = trim(filter_var($value, FILTER_SANITIZE_STRING));
+        $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        $entry[$key] = trim($value);
         if ($entry[$key] == "") {
             $dataError = true;
             break;
@@ -113,7 +114,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 function print_label($data, $texts)
 {
-    $fp = pfsockopen("192.168.1.18", 9100);
+    $printer = "192.168.1.18";
+    $fp = pfsockopen($printer, 9100);
 
     if (!$fp)
         return array(2, "printerNotFound");
