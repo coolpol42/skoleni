@@ -85,12 +85,7 @@ sap.ui.define([
             });
 
             // If everything is correct, enable button to navigate to video view
-            if (!error) {
-                let data = this.getOwnerComponent().getModel("formValues").getProperty("/entry");
-                oView.byId("toVideo").setVisible(true);
-            } else {
-                oView.byId("toVideo").setVisible(false);
-            }
+            oView.byId("toVideo").setBlocked(error);
         },
         navForward: function () { // Navigate to video/summary view - depending on editForm state
             if (this.getOwnerComponent().getModel("nav").getProperty("/editForm")) {

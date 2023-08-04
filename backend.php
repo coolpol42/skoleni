@@ -3,7 +3,8 @@ require 'vendor/autoload.php';
 
 use Mpdf\Mpdf;
 
-header('Access-Control-Allow-Origin: http://localhost:8080');
+// header('Access-Control-Allow-Origin: http://localhost:8080');
+header('Access-Control-Allow-Origin: https://entry.azurewebsites.net/');
 header('Access-Control-Allow-Methods: GET, POST');
 header('Access-Control-Allow-Headers: Content-Type');
 require 'vendor/autoload.php';
@@ -112,10 +113,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     echo json_encode($out);
 }
-function print_label($data, $texts)
+function print_label($data, $texts): array
 {
-    $printer = "192.168.1.18";
-    $fp = pfsockopen($printer, 9100);
+    $fp = pfsockopen("192.168.1.9", 9100);
 
     if (!$fp)
         return array(2, "printerNotFound");
@@ -170,6 +170,7 @@ function print_label($data, $texts)
                                     </tr>
                                 </table>
                             </section>
+                            <p id = 'not-transferable'><i>{$texts["NotTransferable"]}</i></p>
                         </div>
                     </div>
                 </body>";

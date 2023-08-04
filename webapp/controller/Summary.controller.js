@@ -38,6 +38,7 @@ sap.ui.define([
                     language: lang,
                     texts: JSON.stringify({
                         "DateOfEntry": getI18nText("DateOfEntry", that),
+                        "NotTransferable": getI18nText("NotTransferable", that),
                     })
                 },
                 success: function (message) {

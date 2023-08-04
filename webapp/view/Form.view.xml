@@ -40,7 +40,7 @@
                                     <grid:GridItemLayoutData gridColumn="1 / 2"/>
                                 </layoutData>
                             </Button>
-                            <Button icon="sap-icon://{UI>/button/icon}" visible="false" text="{UI>/button/text}"
+                            <Button icon="sap-icon://{UI>/button/icon}" blocked="true" text="{UI>/button/text}"
                                     type="Emphasized"
                                     class="button" press=".navForward" id="toVideo">
                                 <layoutData>

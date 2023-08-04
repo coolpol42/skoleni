@@ -1,4 +1,5 @@
 let langCodes = ["eng", "cz", "pol", "de"];
+// let backendUrl = "http://localhost/backend.php";
 let backendUrl = "backend.php";
 
 sap.ui.define([

@@ -1,10 +1,41 @@
 :root{
     --border: 1px solid #a4a4a4;
-
     --border-radius: 5px;
-
-
     --padding-cell: 10px 15px;
+}
+
+.sapMStdTileIconDiv, .sapMStdTileIconDiv .sapMImg {
+    width: 4rem !important;
+    height: 3rem !important;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.sapMStdTileTitle {
+    font-size: 2rem;
+    line-height: 1.9rem;
+    font-weight: 300;
+}
+
+.sapMStdTileTopRow {
+    padding-top: 1.2rem;
+}
+
+.sapMStdTileMonitorType {
+    margin-top: -0.7rem;
+    padding: 1.2rem 1rem;
+    box-sizing: border-box;
+    display: flex;
+    height: 63%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sapMStdTileInfo {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+
 }
 .sapUiLayoutCSSGrid{
     margin: 10px auto;
