@@ -13,7 +13,7 @@
 
 .sapMStdTileTitle {
     font-size: 2rem;
-    line-height: 1.9rem;
+    line-height: 2rem;
     font-weight: 300;
 }
 
@@ -23,7 +23,7 @@
 
 .sapMStdTileMonitorType {
     margin-top: -0.7rem;
-    padding: 1.2rem 1rem;
+    padding: 1.1rem 1rem;
     box-sizing: border-box;
     display: flex;
     height: 63%;

@@ -5,7 +5,8 @@ sap.ui.define([
     "sap/m/StandardListItem"
 ], function (Controller, MessageBox, List, StandardListItem) {
     "use strict";
-    var that, lang, printTimes, errors = {
+    var that, lang, printTimes, timeOut, request;
+    var errors = {
         save: [],
         print: []
     }
@@ -29,7 +30,7 @@ sap.ui.define([
         },
         sendRequest: function (action) {
             this.getView().setBusy(true);
-            jQuery.ajax({
+            request = jQuery.ajax({
                 url: backendUrl,
                 method: "POST",
                 data: {
@@ -57,6 +58,14 @@ sap.ui.define([
                     }
                 }
             });
+            timeOut = setTimeout(() => {
+                this.getView().setBusy(false);
+                request.abort();
+                errors = {
+                    save: [3, "sConnectionError"],
+                    print: [3, "printNotMade"]
+                }
+            }, 60000);
         },
         messageBox: function (errors, actions, emphasizedAction, list) {
             switch (Math.max(errors.save[0], errors.print[0])) { // Getting the highest error state
@@ -105,6 +114,7 @@ sap.ui.define([
 
             let interval = setInterval(() => {
                 if (errors.save[0] !== undefined || errors.print[0] !== undefined) {
+                    clearTimeout(timeOut);
                     clearInterval(interval);
                     this.getView().setBusy(false);
 
@@ -162,6 +172,7 @@ sap.ui.define([
 
             let interval = setInterval(() => {
                 if (errors.print[0] !== undefined) {
+                    clearTimeout(timeOut);
                     clearInterval(interval);
                     this.getView().setBusy(false);
 
