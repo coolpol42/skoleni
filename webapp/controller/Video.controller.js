@@ -67,6 +67,7 @@ sap.ui.define([
 
             // Resetting the view
             oView.byId("btn-forward").setEnabled(false);
+            video.currentTime = 0;
             video.play();
         }
     });

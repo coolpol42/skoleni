@@ -1,5 +1,6 @@
 let langCodes = ["eng", "cz", "pol", "de"];
 // let backendUrl = "http://localhost/backend.php";
+let printer;
 let backendUrl = "backend.php";
 
 sap.ui.define([
@@ -18,6 +19,8 @@ sap.ui.define([
             UIComponent.prototype.init.apply(this, arguments);
 
             this.refresh();
+
+            getPrinter();
 
             this.getRouter().initialize();
         },
@@ -56,4 +59,17 @@ function getI18nText(key, That, params = []) {
 
 function copyObject(obj = {}) {
     return JSON.parse(JSON.stringify(obj));
+}
+
+function getPrinter() {
+    BrowserPrint.getDefaultDevice("printer",
+        function (device) {
+            if (!device.name)
+                printer = null;
+            else
+                printer = new Zebra.Printer(device);
+
+        }, function () {
+            printer = null;
+        });
 }
