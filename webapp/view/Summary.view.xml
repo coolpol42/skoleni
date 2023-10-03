@@ -32,7 +32,7 @@
                         </HBox>
 
                         <Button icon="sap-icon://edit" text="{i18n>editValues}" type="Transparent"
-                                class="button sapUiSmallMarginTop" press=".navToForm">
+                                class="button sapUiSmallMarginTop" press=".navToForm" id = "navToForm">
                         </Button>
                         <Button icon="sap-icon://print" text="{i18n>printAndSave}" type="Emphasized"
                                 class="button sapUiSmallMarginTop" press=".printAndSave">

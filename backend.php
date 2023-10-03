@@ -14,6 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $out = array("save" => array(), "print" => "");
     $dataError = false;
 
+    $timezone = new DateTimeZone('Europe/Prague');
+    $date = new DateTime('now', $timezone);
+    $dateInFormat = $date->format('Y-m-d H:i:s');
+
     $data = json_decode($_POST['data'], true);
     $entry = array(
         "FirstName" => $data["FirstName"],
@@ -50,9 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->bindParam(':first_name', $entry["FirstName"]);
                 $stmt->bindParam(':last_name', $entry["LastName"]);
                 $stmt->bindParam(':company', $entry["Company"]);
-                $date = date("Y-m-d H:i:s");
-                $stmt->bindParam(':date_of_entry', $date);
-                $entry["DateOfEntry"] = $date;
+                $stmt->bindParam(':date_of_entry', $dateInFormat);
+                $entry["DateOfEntry"] = $dateInFormat;
 
                 $emptyFile = '{"entries":[]}';
 
@@ -81,17 +84,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $out["save"] = array(0, "saveSuccess");
 
             } catch (PDOException $e) {
-
-                $file = json_decode(file_get_contents($address));
-                $entry["DateOfEntry"] = date("Y-m-d H:i:s");
-
                 if (!file_exists($address)) {
                     $file = fopen($address, "w");
                     fwrite($file, '{"entries":[]}');
                     fclose($file);
                 }
-                $file->entries[] = $entry;
-                file_put_contents($address, json_encode($file, JSON_PRETTY_PRINT));
+                $fileData = json_decode(file_get_contents($address));
+                $entry["DateOfEntry"] = $dateInFormat;
+
+                $fileData->entries[] = $entry;
+                file_put_contents($address, json_encode($fileData, JSON_PRETTY_PRINT));
 
                 $out["save"] = array(1, "savedLocally");
             } finally {

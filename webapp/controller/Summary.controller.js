@@ -183,6 +183,7 @@ sap.ui.define([
             }
         },
         printAndSave: function () {
+            this.getView().byId("navToForm").setEnabled(false);
             this.sendRequest("save");
 
             let interval = setInterval(() => {
@@ -281,6 +282,7 @@ sap.ui.define([
                 print: []
             }
             labelData = {};
+            this.getView().byId("navToForm").setEnabled(true);
 
             var language = oEvent.getParameter("arguments").language.toLowerCase();
             lang = langCodes.includes(language) ? language : "eng";
